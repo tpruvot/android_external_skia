@@ -109,16 +109,20 @@ void sk_memset32_portable(uint32_t dst[], uint32_t value, int count) {
 }
 
 static void sk_memset16_stub(uint16_t dst[], uint16_t value, int count) {
+#ifndef sk_memset16
     SkMemset16Proc proc = SkMemset16GetPlatformProc();
     sk_memset16 = proc ? proc : sk_memset16_portable;
+#endif
     sk_memset16(dst, value, count);
 }
 
 SkMemset16Proc sk_memset16 = sk_memset16_stub;
 
 static void sk_memset32_stub(uint32_t dst[], uint32_t value, int count) {
+#ifndef sk_memset32
     SkMemset32Proc proc = SkMemset32GetPlatformProc();
     sk_memset32 = proc ? proc : sk_memset32_portable;
+#endif
     sk_memset32(dst, value, count);
 }
 
